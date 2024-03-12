@@ -1,0 +1,34 @@
+{
+  "configurations" : [
+    {
+      "id" : "1468EF69-651C-4EBC-9CB2-39C825976504",
+      "name" : "Default Configuration",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:",
+          "identifier" : "SwiftSignal",
+          "name" : "SwiftSignal"
+        }
+      ]
+    },
+    "threadSanitizerEnabled" : true,
+    "undefinedBehaviorSanitizerEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "SwiftSignalTests",
+        "name" : "SwiftSignalTests"
+      }
+    }
+  ],
+  "version" : 1
+}
