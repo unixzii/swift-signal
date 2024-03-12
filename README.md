@@ -78,7 +78,10 @@ Running the code will receive the below output:
 
 To dispose (destroy) an effect, just invoke the returned closure of `createEffect`.
 
-You can return a cleanup closure inside `createEffect`, the closure will be invoked every time the effect's dependencies change:
+> [!NOTE]
+> You must keep a reference of the dispose closure, or the effect may not work as expected. 
+
+You can return a cleanup closure inside `createEffect`, the closure will be invoked on disposal or every time the effect's dependencies change:
 
 ```swift
 createEffect {
@@ -184,6 +187,53 @@ struct ContentView: View {
 ```
 
 You can play with the app, and explore the fine-grained reactivity by observing the updates of each view.
+
+### `@StateObject` vs `@ObservedObject`
+
+Both `ObservedSignal` and `ObservedComputed` comform to `ObservableObject` protocol, which must be used with `@StateObject` or `@ObservedObject` property wrapper. Make decisions in the way you handle other ordinary `ObservableObject` models. Normally, `@StateObject` is used to provide a single source of truth, and `@ObservedObject` is used to observe the pass-in properties.
+
+### Passing Data Between SwiftUI and AppKit / UIKit
+
+Signal is a better way to pass data between SwiftUI and other UI frameworks. For example, you can create a signal in an AppKit view controller, and pass it to the hosted SwiftUI view. Then you can conveniently update the SwiftUI view outside SwiftUI environment, and create two-way bindings with effects.
+
+```swift
+class ViewController: NSViewController {
+    let count = Signal(initialValue: 0)
+    var countEffect: DisposeAction?
+
+    override func loadView() {
+        view = NSHostingView(rootView: MyView(count: count))
+        countEffect = createEffect { [unowned self] in
+            let currentCount = count()
+            
+            // Handle count changes...
+            
+            return nil
+        }
+    }
+}
+
+struct MyView: View {
+    @ObservedObject private var count: ObservedComputed<Int>
+    private let countSignal: Signal<Int>
+    
+    init(count: Signal<Int>) {
+        self.count = .init {
+            return count()
+        }
+        self.countSignal = count
+    }
+    
+    var body: some View {
+        VStack {
+            Text("\(count())")
+            Button("Increase") {
+                countSignal.update { $0 }
+            }
+        }
+    }
+}
+``` 
 
 ## Contributing
 
