@@ -228,7 +228,7 @@ struct MyView: View {
         VStack {
             Text("\(count())")
             Button("Increase") {
-                countSignal.update { $0 }
+                countSignal.update { $0 + 1 }
             }
         }
     }
