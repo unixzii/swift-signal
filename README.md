@@ -1,5 +1,8 @@
 # Swift Signal
 
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Funixzii%2Fswift-signal%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/unixzii/swift-signal)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Funixzii%2Fswift-signal%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/unixzii/swift-signal)
+
 **Swift Signal** is a Swift package that provides reactivity computation inspired by [Solid](https://www.solidjs.com/).
 
 If you're familiar with Solid or signals, this package will be easy to get started with. The API design is mostly the same as Solid, except for language style differences.
